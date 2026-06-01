@@ -1,5 +1,9 @@
 # ChangeLog
 
+## v0.4
+- Gestion des utilisateurs (User entity, Registration, Login/Logout)
+- Relation User <-> Character
+
 ## v0.3.1
 - Formatage des Form
 

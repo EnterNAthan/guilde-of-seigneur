@@ -50,6 +50,9 @@ class Character
     #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $modification = null;
 
+    #[ORM\ManyToOne(inversedBy: 'characters')]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -195,6 +198,18 @@ class Character
     public function setModification(\DateTimeInterface $modification): static
     {
         $this->modification = $modification;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
