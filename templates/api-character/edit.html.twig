@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Character (API){% endblock %}
+
+{% block body %}
+    <h1>Edit Character (API)</h1>
+
+    <div class="col-6 offset-3">
+        {{ include('api-character/_form.html.twig', {'button_label': 'Update'}) }}
+
+        <a href="{{ path('api_character_index') }}">back to list</a>
+
+        {{ include('api-character/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

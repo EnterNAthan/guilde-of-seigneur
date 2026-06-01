@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Character (API){% endblock %}
+
+{% block body %}
+    <h1>Create new Character (API)</h1>
+
+    <div class="col-6 offset-3">
+        {{ include('api-character/_form.html.twig') }}
+
+        <a href="{{ path('api_character_index') }}">back to list</a>
+    </div>
+{% endblock %}

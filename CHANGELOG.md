@@ -1,5 +1,8 @@
 # ChangeLog
 
+## v0.5
+- Mise en place de l'utilisation de l'API
+
 ## v0.4
 - Gestion des utilisateurs (User entity, Registration, Login/Logout)
 - Relation User <-> Character

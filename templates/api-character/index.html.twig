@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{# Titre de la page #}
+{% block title %}Liste des Characters (API){% endblock %}
+
+{% block body %}
+    {# Titre principal #}
+    <h1>Liste des Characters (API)</h1>
+
+    {# Tableau des Characters #}
+    <table class="table">
+        {# En-tete du tableau #}
+        <thead>
+            <tr>
+                <th style="text-align: center;">Kind</th>
+                <th style="text-align: center;">Name</th>
+                <th style="text-align: center;">Slug</th>
+                <th style="text-align: center;">Surname</th>
+                <th style="text-align: center;">Caste</th>
+                <th style="text-align: center;">Knowledge</th>
+                <th style="text-align: center;">Intelligence</th>
+                <th style="text-align: center;">Strength</th>
+                <th style="text-align: center;">Creation</th>
+                <th style="text-align: center;">Modification</th>
+                <th style="text-align: center;">Actions</th>
+            </tr>
+        </thead>
+        {# Corps du tableau #}
+        <tbody>
+        {% for character in characters %}
+            {# Ligne d'un Character avec effet de survol #}
+            <tr onmouseover="this.style.backgroundColor='#e0e0e0'" onmouseout="this.style.backgroundColor=''">
+                {# Kind en gras si Dame #}
+                <td style="text-align: center;">
+                    {% if character.kind == 'Dame' %}
+                        <strong>{{ character.kind }}</strong>
+                    {% else %}
+                        {{ character.kind }}
+                    {% endif %}
+                </td>
+                {# Name cliquable vers le show #}
+                <td style="text-align: center;">
+                    <a href="{{ path('api_character_show', {'identifier': character.identifier}) }}">{{ character.name }}</a>
+                </td>
+                <td style="text-align: center;">{{ character.slug }}</td>
+                <td style="text-align: center;">{{ character.surname }}</td>
+                <td style="text-align: center;">{{ character.caste }}</td>
+                <td style="text-align: center;">{{ character.knowledge }}</td>
+                <td style="text-align: center;">{{ character.intelligence }}</td>
+                <td style="text-align: center;">{{ character.strength }}</td>
+                {# Dates formatees en jour/mois/annee #}
+                <td style="text-align: center;">{{ character.creation ? character.creation|date('d/m/Y') : '' }}</td>
+                <td style="text-align: center;">{{ character.modification ? character.modification|date('d/m/Y') : '' }}</td>
+                {# Actions #}
+                <td style="text-align: center;">
+                    <a href="{{ path('api_character_edit', {'identifier': character.identifier}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">Aucun enregistrement trouve</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {# Bouton de creation centre #}
+    <div style="text-align: center;">
+        <a href="{{ path('api_character_new') }}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Nouveau Character</a>
+    </div>
+{% endblock %}
