@@ -10,10 +10,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/character')]
 final class CharacterController extends AbstractController
 {
+    public function __construct(
+        private SluggerInterface $slugger,
+    ) {
+    }
     #[Route(name: 'app_character_index', methods: ['GET'])]
     public function index(CharacterRepository $characterRepository): Response
     {
@@ -30,6 +35,11 @@ final class CharacterController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Mieux dans un service
+            $character->setIdentifier(hash('sha1', uniqid()));
+            $character->setSlug($this->slugger->slug($character->getName())->lower());
+            $character->setCreation(new \DateTime());
+            $character->setModification(new \DateTime());
             $entityManager->persist($character);
             $entityManager->flush();
 
@@ -59,6 +69,9 @@ final class CharacterController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Mieux dans un service
+            $character->setSlug($this->slugger->slug($character->getName())->lower());
+            $character->setModification(new \DateTime());
             $entityManager->flush();
 
             return $this->redirectToRoute('app_character_show', [

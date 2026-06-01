@@ -1,5 +1,8 @@
 # ChangeLog
 
+## v0.3.1
+- Formatage des Form
+
 ## v0.2
 - Mise en place des donnees (Entity Character, Fixtures)
 - Mise en place du CRUD
