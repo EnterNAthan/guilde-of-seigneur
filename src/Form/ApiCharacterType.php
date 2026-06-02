@@ -40,6 +40,9 @@ class ApiCharacterType extends AbstractType
                     'placeholder' => 'Niveau de force du Character (1-250)',
                 ],
             ])
+            ->add('life', IntegerType::class, [
+                'required' => false,
+            ])
             ->add('image', TextType::class, [
                 'required' => false,
             ])

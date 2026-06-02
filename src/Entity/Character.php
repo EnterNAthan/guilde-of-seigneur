@@ -41,6 +41,9 @@ class Character
     #[ORM\Column(type: 'smallint', nullable: true)]
     private ?int $strength = null;
 
+    #[ORM\Column(type: 'smallint', nullable: true)]
+    private ?int $life = null;
+
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $image = null;
 
@@ -162,6 +165,18 @@ class Character
     public function setStrength(?int $strength): static
     {
         $this->strength = $strength;
+
+        return $this;
+    }
+
+    public function getLife(): ?int
+    {
+        return $this->life;
+    }
+
+    public function setLife(?int $life): static
+    {
+        $this->life = $life;
 
         return $this;
     }

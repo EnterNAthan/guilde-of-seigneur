@@ -15,6 +15,7 @@
                 <th>Connaissance</th>
                 <th>Intelligence</th>
                 <th>Force</th>
+                <th>Vie</th>
                 <th>Creation</th>
                 <th>Actions</th>
             </tr>
@@ -37,6 +38,7 @@
                 <td>{{ character.knowledge }}</td>
                 <td>{{ character.intelligence }}</td>
                 <td>{{ character.strength }}</td>
+                <td>{{ character.life }}</td>
                 <td>{{ character.creation ? character.creation|date('d/m/Y') : '' }}</td>
                 <td>
                     <div class="actions">
@@ -50,7 +52,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="9">La Guilde est vide... Aucun membre trouve.</td>
+                <td colspan="10">La Guilde est vide... Aucun membre trouve.</td>
             </tr>
         {% endfor %}
         </tbody>

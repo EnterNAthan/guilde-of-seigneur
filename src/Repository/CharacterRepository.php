@@ -15,4 +15,15 @@ class CharacterRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Character::class);
     }
+
+    public function findByLifeAbove(int $life): array
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.life >= :life')
+            ->setParameter('life', $life)
+            ->orderBy('c.life', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

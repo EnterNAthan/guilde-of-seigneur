@@ -20,6 +20,7 @@
                 <th style="text-align: center;">Knowledge</th>
                 <th style="text-align: center;">Intelligence</th>
                 <th style="text-align: center;">Strength</th>
+                <th style="text-align: center;">Life</th>
                 <th style="text-align: center;">Creation</th>
                 <th style="text-align: center;">Modification</th>
                 <th style="text-align: center;">Actions</th>
@@ -48,6 +49,7 @@
                 <td style="text-align: center;">{{ character.knowledge }}</td>
                 <td style="text-align: center;">{{ character.intelligence }}</td>
                 <td style="text-align: center;">{{ character.strength }}</td>
+                <td style="text-align: center;">{{ character.life }}</td>
                 {# Dates formatees en jour/mois/annee #}
                 <td style="text-align: center;">{{ character.creation ? character.creation|date('d/m/Y') : '' }}</td>
                 <td style="text-align: center;">{{ character.modification ? character.modification|date('d/m/Y') : '' }}</td>
@@ -58,7 +60,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="11">Aucun enregistrement trouve</td>
+                <td colspan="12">Aucun enregistrement trouve</td>
             </tr>
         {% endfor %}
         </tbody>

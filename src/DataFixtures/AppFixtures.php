@@ -39,6 +39,7 @@ class AppFixtures extends Fixture
         }
         $character->setSlug($this->slugger->slug($characterData['name'])->lower());
         $character->setIdentifier(hash('sha1', uniqid()));
+        $character->setLife($characterData['life'] ?? mt_rand(50, 200));
         $character->setCreation(new \DateTime());
         $character->setModification(new \DateTime());
 

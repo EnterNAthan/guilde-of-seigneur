@@ -27,6 +27,14 @@ final class CharacterController extends AbstractController
         ]);
     }
 
+    #[Route('/life/{life}', name: 'app_character_life', requirements: ['life' => '\d+'], methods: ['GET'])]
+    public function life(int $life, CharacterRepository $characterRepository): Response
+    {
+        return $this->render('character/index.html.twig', [
+            'characters' => $characterRepository->findByLifeAbove($life),
+        ]);
+    }
+
     #[Route('/new', name: 'app_character_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
