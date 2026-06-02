@@ -2,23 +2,314 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}La Guilde des Seigneurs{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>&#x2694;</text></svg>">
+        <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@400;700;900&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
         {% block stylesheets %}
         {% endblock %}
+        <style>
+            :root {
+                --gold: #c9a84c;
+                --gold-light: #e8d48b;
+                --gold-dark: #8b6914;
+                --parchment: #f4e4c1;
+                --parchment-dark: #e8d5a3;
+                --brown: #3e2723;
+                --brown-light: #5d4037;
+                --brown-dark: #1b0000;
+                --red-blood: #8b0000;
+                --green-forest: #2e5733;
+                --bg-dark: #1a1a2e;
+                --bg-card: #16213e;
+            }
+
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+
+            body {
+                font-family: 'Lora', Georgia, serif;
+                background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+                color: #e0d6c8;
+                min-height: 100vh;
+            }
+
+            /* Navbar */
+            .navbar {
+                background: linear-gradient(180deg, rgba(30,20,10,0.95) 0%, rgba(20,12,5,0.9) 100%);
+                border-bottom: 3px solid var(--gold);
+                padding: 0 2rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                height: 70px;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            }
+            .navbar-brand {
+                font-family: 'Cinzel', serif;
+                font-weight: 900;
+                font-size: 1.4rem;
+                color: var(--gold);
+                text-decoration: none;
+                text-shadow: 0 0 10px rgba(201,168,76,0.3);
+                letter-spacing: 2px;
+            }
+            .navbar-brand:hover { color: var(--gold-light); }
+            .navbar-links { display: flex; gap: 1.5rem; align-items: center; }
+            .navbar-links a {
+                font-family: 'Cinzel', serif;
+                color: #b8a88a;
+                text-decoration: none;
+                font-size: 0.85rem;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                transition: color 0.3s;
+                padding: 5px 0;
+                border-bottom: 2px solid transparent;
+            }
+            .navbar-links a:hover {
+                color: var(--gold);
+                border-bottom-color: var(--gold);
+            }
+
+            /* Main container */
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 2rem;
+            }
+
+            /* Headings */
+            h1 {
+                font-family: 'Cinzel', serif;
+                font-weight: 900;
+                color: var(--gold);
+                text-align: center;
+                font-size: 2.2rem;
+                margin: 1.5rem 0;
+                text-shadow: 0 2px 10px rgba(201,168,76,0.2);
+                letter-spacing: 3px;
+            }
+            h1::after {
+                content: '';
+                display: block;
+                width: 100px;
+                height: 3px;
+                background: linear-gradient(90deg, transparent, var(--gold), transparent);
+                margin: 0.8rem auto 0;
+            }
+
+            /* Table */
+            .table {
+                width: 100%;
+                border-collapse: separate;
+                border-spacing: 0;
+                background: rgba(20,15,10,0.85);
+                border: 2px solid var(--gold-dark);
+                border-radius: 8px;
+                overflow: hidden;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            }
+            .table thead th {
+                font-family: 'Cinzel', serif;
+                background: linear-gradient(180deg, #2a1f0e 0%, #1e150a 100%);
+                color: var(--gold);
+                padding: 14px 12px;
+                font-size: 0.8rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                border-bottom: 2px solid var(--gold-dark);
+                text-align: center;
+            }
+            .table tbody td {
+                padding: 10px 12px;
+                border-bottom: 1px solid rgba(201,168,76,0.1);
+                text-align: center;
+                font-size: 0.9rem;
+                color: #d4c5a9;
+            }
+            .table tbody tr {
+                transition: all 0.3s ease;
+            }
+            .table tbody tr:hover {
+                background: rgba(201,168,76,0.08) !important;
+                box-shadow: inset 0 0 20px rgba(201,168,76,0.05);
+            }
+            .table tbody tr:nth-child(even) {
+                background: rgba(255,255,255,0.02);
+            }
+
+            /* Links in table */
+            .table a {
+                color: var(--gold);
+                text-decoration: none;
+                font-weight: 700;
+                transition: all 0.3s;
+            }
+            .table a:hover {
+                color: var(--gold-light);
+                text-shadow: 0 0 8px rgba(201,168,76,0.4);
+            }
+
+            /* Buttons */
+            .btn-medieval {
+                display: inline-block;
+                padding: 8px 18px;
+                font-family: 'Cinzel', serif;
+                font-size: 0.8rem;
+                font-weight: 700;
+                text-decoration: none;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                border: 2px solid;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            .btn-gold {
+                background: linear-gradient(180deg, var(--gold) 0%, var(--gold-dark) 100%);
+                color: #1a0e00;
+                border-color: var(--gold);
+            }
+            .btn-gold:hover {
+                background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
+                box-shadow: 0 0 15px rgba(201,168,76,0.4);
+                transform: translateY(-1px);
+            }
+            .btn-blood {
+                background: linear-gradient(180deg, #a52020 0%, var(--red-blood) 100%);
+                color: #fff;
+                border-color: #a52020;
+            }
+            .btn-blood:hover {
+                background: linear-gradient(180deg, #c0392b 0%, #a52020 100%);
+                box-shadow: 0 0 15px rgba(139,0,0,0.4);
+                transform: translateY(-1px);
+            }
+            .btn-forest {
+                background: linear-gradient(180deg, #3a7d44 0%, var(--green-forest) 100%);
+                color: #fff;
+                border-color: #3a7d44;
+            }
+            .btn-forest:hover {
+                background: linear-gradient(180deg, #4caf50 0%, #3a7d44 100%);
+                box-shadow: 0 0 15px rgba(46,87,51,0.4);
+                transform: translateY(-1px);
+            }
+            .btn-stone {
+                background: linear-gradient(180deg, #5a5a5a 0%, #3a3a3a 100%);
+                color: #ddd;
+                border-color: #666;
+            }
+            .btn-stone:hover {
+                background: linear-gradient(180deg, #6a6a6a 0%, #4a4a4a 100%);
+                box-shadow: 0 0 15px rgba(100,100,100,0.3);
+                transform: translateY(-1px);
+            }
+
+            /* Card */
+            .card-medieval {
+                background: rgba(20,15,10,0.9);
+                border: 2px solid var(--gold-dark);
+                border-radius: 10px;
+                padding: 2rem;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            /* Presentation block */
+            .presentation {
+                background: linear-gradient(135deg, rgba(62,39,35,0.6) 0%, rgba(30,20,10,0.8) 100%);
+                border: 1px solid var(--gold-dark);
+                border-radius: 8px;
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+                font-style: italic;
+                line-height: 1.8;
+            }
+            .presentation strong {
+                color: var(--gold);
+                font-style: normal;
+            }
+
+            /* Character image */
+            .character-image {
+                border: 3px solid var(--gold-dark);
+                border-radius: 10px;
+                box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+                transition: transform 0.3s, box-shadow 0.3s;
+            }
+            .character-image:hover {
+                transform: scale(1.02);
+                box-shadow: 0 12px 35px rgba(201,168,76,0.2);
+            }
+
+            /* Forms */
+            .form-control {
+                background: rgba(30,25,20,0.9);
+                border: 1px solid rgba(201,168,76,0.3);
+                color: #e0d6c8;
+                padding: 10px 14px;
+                border-radius: 4px;
+                font-family: 'Lora', serif;
+                width: 100%;
+                margin-bottom: 1rem;
+                transition: border-color 0.3s;
+            }
+            .form-control:focus {
+                outline: none;
+                border-color: var(--gold);
+                box-shadow: 0 0 10px rgba(201,168,76,0.2);
+            }
+            label {
+                font-family: 'Cinzel', serif;
+                font-size: 0.85rem;
+                color: var(--gold);
+                display: block;
+                margin-bottom: 4px;
+                letter-spacing: 1px;
+            }
+
+            /* Dame badge */
+            .dame-badge {
+                color: #e88bc4;
+                font-weight: 700;
+                text-shadow: 0 0 6px rgba(232,139,196,0.3);
+            }
+
+            /* Action group */
+            .actions { display: flex; gap: 8px; justify-content: center; align-items: center; }
+            .actions form { margin: 0; }
+
+            /* Footer separator */
+            .separator {
+                text-align: center;
+                margin: 2rem 0;
+                color: var(--gold-dark);
+                font-size: 1.2rem;
+                letter-spacing: 8px;
+            }
+        </style>
 
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
-
-        {% set frankenphpHotReload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
-        {% if frankenphpHotReload %}
-        <meta name="frankenphp-hot-reload:url" content="{{ frankenphpHotReload }}">
-        <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
-        <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
-        {% endif %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <nav class="navbar">
+            <a href="{{ path('api_character_index') }}" class="navbar-brand">La Guilde des Seigneurs</a>
+            <div class="navbar-links">
+                <a href="{{ path('api_character_index') }}">Characters</a>
+                <a href="{{ path('api_character_new') }}">Nouveau</a>
+                <a href="{{ path('app_character_index') }}">BDD Locale</a>
+                <a href="{{ path('api_login') }}">Connexion API</a>
+            </div>
+        </nav>
+
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div>
+
+        <div class="separator">&#x2694; &#x2694; &#x2694;</div>
     </body>
 </html>

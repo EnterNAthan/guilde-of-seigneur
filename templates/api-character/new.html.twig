@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Character (API){% endblock %}
+{% block title %}Recruter un membre - La Guilde des Seigneurs{% endblock %}
 
 {% block body %}
-    <h1>Create new Character (API)</h1>
+    <h1>Recruter un nouveau membre</h1>
 
-    <div class="col-6 offset-3">
+    <div class="card-medieval">
         {{ include('api-character/_form.html.twig') }}
 
-        <a href="{{ path('api_character_index') }}">back to list</a>
+        <div style="text-align: center; margin-top: 1rem;">
+            <a href="{{ path('api_character_index') }}" class="btn-medieval btn-stone">Retour a la Guilde</a>
+        </div>
     </div>
 {% endblock %}

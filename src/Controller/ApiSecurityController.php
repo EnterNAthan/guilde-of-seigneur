@@ -32,7 +32,17 @@ class ApiSecurityController extends AbstractController
 
             if (200 === $response->getStatusCode()) {
                 $content = json_decode($response->getContent(), true);
-                $request->getSession()->set('token', $content['token']);
+
+                // Stocker le token JWT si present (API distante)
+                if (isset($content['token'])) {
+                    $request->getSession()->set('token', $content['token']);
+                }
+
+                // Stocker les cookies de session de l'API (API locale)
+                $cookies = $response->getHeaders(false)['set-cookie'] ?? [];
+                if (!empty($cookies)) {
+                    $request->getSession()->set('api_cookies', $cookies);
+                }
 
                 return $this->redirectToRoute('api_character_index', [], Response::HTTP_SEE_OTHER);
             }

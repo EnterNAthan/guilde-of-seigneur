@@ -1,68 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Character (API){% endblock %}
+{% block title %}{{ character.name }} - La Guilde des Seigneurs{% endblock %}
 
 {% block body %}
-    <h1>Character (API)</h1>
+    <h1>{{ character.name }}</h1>
 
-    <div class="col-6 offset-3">
+    <div class="card-medieval">
+        {% if character.image %}
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <img src="https://la-guilde-des-seigneurs.com/medias/{{ character.image }}" alt="{{ character.name }}" class="character-image" style="max-width: 280px;">
+            </div>
+        {% endif %}
+
+        <div class="presentation">
+            <p>Je m'appelle <strong>{{ character.name }}</strong>.</p>
+            <p>Je fais partie de <strong>La Guilde des Seigneurs</strong> !</p>
+            <p>Je suis un <strong>{{ character.kind }}</strong>{% if character.caste %} de la caste <strong>{{ character.caste }}</strong>{% endif %}.</p>
+            {% if character.surname %}
+                <p>Mon surnom est <strong>{{ character.surname }}</strong>.</p>
+            {% endif %}
+            {% if character.intelligence and character.strength %}
+                <p>Mon intelligence est de <strong>{{ character.intelligence }}</strong> et ma force de <strong>{{ character.strength }}</strong>.</p>
+            {% endif %}
+            {% if character.knowledge %}
+                <p>Je suis assez fort dans <strong>{{ character.knowledge }}</strong>.</p>
+            {% endif %}
+        </div>
+
         <table class="table">
             <tbody>
-                <tr>
-                    <th>Identifier</th>
-                    <td>{{ character.identifier }}</td>
-                </tr>
-                <tr>
-                    <th>Name</th>
-                    <td>{{ character.name }}</td>
-                </tr>
-                <tr>
-                    <th>Slug</th>
-                    <td>{{ character.slug }}</td>
-                </tr>
-                <tr>
-                    <th>Kind</th>
-                    <td>{{ character.kind }}</td>
-                </tr>
-                <tr>
-                    <th>Surname</th>
-                    <td>{{ character.surname }}</td>
-                </tr>
-                <tr>
-                    <th>Caste</th>
-                    <td>{{ character.caste }}</td>
-                </tr>
-                <tr>
-                    <th>Knowledge</th>
-                    <td>{{ character.knowledge }}</td>
-                </tr>
-                <tr>
-                    <th>Intelligence</th>
-                    <td>{{ character.intelligence }}</td>
-                </tr>
-                <tr>
-                    <th>Strength</th>
-                    <td>{{ character.strength }}</td>
-                </tr>
-                <tr>
-                    <th>Image</th>
-                    <td>{{ character.image }}</td>
-                </tr>
-                <tr>
-                    <th>Creation</th>
-                    <td>{{ character.creation }}</td>
-                </tr>
-                <tr>
-                    <th>Modification</th>
-                    <td>{{ character.modification }}</td>
-                </tr>
+                <tr><th>Identifiant</th><td>{{ character.identifier }}</td></tr>
+                <tr><th>Nom</th><td>{{ character.name }}</td></tr>
+                <tr><th>Slug</th><td>{{ character.slug }}</td></tr>
+                <tr><th>Type</th><td>{{ character.kind }}</td></tr>
+                <tr><th>Surnom</th><td>{{ character.surname }}</td></tr>
+                <tr><th>Caste</th><td>{{ character.caste }}</td></tr>
+                <tr><th>Connaissance</th><td>{{ character.knowledge }}</td></tr>
+                <tr><th>Intelligence</th><td>{{ character.intelligence }}</td></tr>
+                <tr><th>Force</th><td>{{ character.strength }}</td></tr>
+                <tr><th>Image</th><td>{{ character.image }}</td></tr>
+                <tr><th>Creation</th><td>{{ character.creation }}</td></tr>
+                <tr><th>Modification</th><td>{{ character.modificationDatetime }}</td></tr>
             </tbody>
         </table>
 
-        <a href="{{ path('api_character_index') }}">back to list</a>
+        <div style="display: flex; gap: 10px; margin-top: 1.5rem; justify-content: center; flex-wrap: wrap;">
+            <a href="{{ path('api_character_index') }}" class="btn-medieval btn-stone">Retour a la Guilde</a>
+            <a href="{{ path('api_character_edit', {'identifier': character.identifier}) }}" class="btn-medieval btn-gold">Modifier</a>
+        </div>
 
-        <a href="{{ path('api_character_edit', {'identifier': character.identifier}) }}">edit</a>
-
-        {{ include('api-character/_delete_form.html.twig') }}
+        <div style="margin-top: 1rem; text-align: center;">
+            {{ include('api-character/_delete_form.html.twig') }}
+        </div>
     </div>
 {% endblock %}
